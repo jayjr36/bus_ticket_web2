@@ -5,6 +5,7 @@
 @section('content')
 <div class="container">
     <h1 class="mt-4">All Buses</h1>
+    <a href="{{route('admin.addBusForm')}}" class="btn btn-sm btn-success-outline">New Bus</a>
     <div class="card mb-4">
         <div class="card-body">
             <table class="table table-bordered">

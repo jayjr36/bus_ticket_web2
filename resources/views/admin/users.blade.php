@@ -74,8 +74,8 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        {{-- <td>{{ $user->card->card_number }}</td> --}}
-                        {{-- <td>{{ $user->card->balance }}</td> --}}
+                        <td>{{ $user->card->card_number }}</td> 
+                        <td>{{ $user->card->balance }}</td>
                     </tr>
                     @endforeach
                 </tbody>

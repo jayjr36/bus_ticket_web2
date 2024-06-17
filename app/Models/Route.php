@@ -10,7 +10,7 @@ class Route extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'bus_id',
+        'name', 'bus_id', 'fare'
     ];
 
     // Relationship to Bus

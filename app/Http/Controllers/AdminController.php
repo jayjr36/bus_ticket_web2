@@ -19,9 +19,10 @@ class AdminController extends Controller
 
     public function showUsers()
     {
-        $users = User::all();
+        $users = User::where('id', '!=', 1)->get();
         return view('admin.users', compact('users'));
     }
+    
 
     public function storeUser(Request $request)
     {
@@ -80,4 +81,32 @@ class AdminController extends Controller
         $totalFare = Ticket::where('bus_id', $bus->id)->whereDate('created_at', $date)->sum('fare');
         return view('admin.fare-collection', compact('bus', 'totalFare', 'date'));
     }
+
+    public function showAddBusForm()
+    {
+        return view('admin.add-bus');
+    }
+
+    public function storeBus(Request $request)
+    {
+        $request->validate([
+            'bus_name' => 'required|string|max:255',
+            'route_name' => 'required|string|max:255',
+            'fare' => 'required|numeric',
+        ]);
+
+        $bus = Bus::create([
+            'name' => $request->bus_name,
+        ]);
+
+        Route::create([
+            'name' => $request->route_name,
+            'fare' => $request->fare,
+            'bus_id' => $bus->id,
+        ]);
+
+        return redirect()->route('admin.addBusForm')->with('success', 'Bus and route added successfully!');
+    }
+
+    
 }

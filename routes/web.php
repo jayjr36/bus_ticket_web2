@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -20,4 +20,7 @@ Route::get('/home2', [App\Http\Controllers\HomeController::class, 'index'])->nam
     Route::get('/admin/buses', [AdminController::class, 'showBuses'])->name('admin.buses');
     Route::get('/admin/buses/{bus}/passengers', [AdminController::class, 'showPassengers']);
     Route::get('/admin/buses/{bus}/fare-collection', [AdminController::class, 'showFareCollection']);
+
+Route::get('/admin/add-bus', [AdminController::class, 'showAddBusForm'])->name('admin.addBusForm');
+Route::post('/admin/add-bus', [AdminController::class, 'storeBus'])->name('admin.storeBus');
 //});
