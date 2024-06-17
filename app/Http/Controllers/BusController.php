@@ -13,21 +13,25 @@ use App\Models\User;
 class BusController extends Controller
 {
     public function getBusInfo(Request $request)
-    {
-        $route = Route::where('name', $request->route_name)->first();
+{
+    $route = Route::where('name', $request->route_name)
+                  ->whereHas('bus', function ($query) use ($request) {
+                      $query->where('name', $request->bus_name);
+                  })
+                  ->first();
 
-        if (!$route) {
-            return response()->json(['message' => 'Route not found'], 404);
-        }
-
-        $bus = $route->bus;
-
-        return response()->json([
-            'bus_name' => $bus->name,
-            'route_name' => $route->name,
-            'fare' => $route->fare
-        ]);
+    if (!$route) {
+        return response()->json(['message' => 'Route not found for the specified bus'], 404);
     }
+
+    return response()->json([
+        'bus_name' => $route->bus->name,
+        'route_name' => $route->name,
+        'route_id' => $route->id, 
+        'fare' => $route->fare
+    ]);
+}
+
 
     public function deductFare(Request $request)
     {
@@ -36,6 +40,11 @@ class BusController extends Controller
 
         if (!$user || !$route) {
             return response()->json(['message' => 'Invalid data'], 400);
+        }
+
+        // Check if the route belongs to the specified bus
+        if ($route->bus->name !== $request->bus_name) {
+            return response()->json(['message' => 'Route does not belong to the specified bus'], 400);
         }
 
         $card = $user->card;
