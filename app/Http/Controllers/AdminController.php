@@ -22,8 +22,12 @@ class AdminController extends Controller
         $users = User::where('id', '!=', 1)->get();
         return view('admin.users', compact('users'));
     }
-    
 
+    public function showUsers2()
+    {
+        $users = User::where('id', '!=', 1)->get();
+        return view('admin.topup', compact('users'));
+    }
     public function storeUser(Request $request)
     {
         $validated = $request->validate([

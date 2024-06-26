@@ -24,3 +24,7 @@ Route::get('/home2', [App\Http\Controllers\HomeController::class, 'index'])->nam
 Route::get('/admin/add-bus', [AdminController::class, 'showAddBusForm'])->name('admin.addBusForm');
 Route::post('/admin/add-bus', [AdminController::class, 'storeBus'])->name('admin.storeBus');
 //});
+Route::get('/top-up', [AdminController::class, 'showUsers2'])->name('top-up');
+Route::get('/add-user', function () {
+    return view('admin.addusers');
+})->name('add-user');

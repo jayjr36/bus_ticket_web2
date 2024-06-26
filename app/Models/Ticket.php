@@ -24,4 +24,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(Route::class);
     }
+
+    public function bus()
+    {
+        return $this->belongsTo(Bus::class);
+    }
 }
