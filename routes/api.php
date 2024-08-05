@@ -16,3 +16,4 @@ Route::post('login', [UserController::class, 'login']);
 Route::post('bus-info', [BusController::class, 'getBusInfo']);
 Route::post('deduct-fare', [BusController::class, 'deductFare']);
 Route::get('tickets', [BusController::class, 'getTickets']);
+Route::post('/rfid/bus/payment', [BusController::class, 'processTicket']);

@@ -9,6 +9,7 @@ use App\Models\Route;
 use App\Models\Card;
 use App\Models\Ticket;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class BusController extends Controller
 {
@@ -104,6 +105,59 @@ public function getTickets(Request $request)
     });
 
     return response()->json(['tickets' => $formattedTickets], 200);
+}
+
+public function processTicket(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'bus_name' => 'required|string',
+        'route_name' => 'required|string',
+        'card_number' => 'required|string',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
+    // Retrieve the validated input
+    $busName = $request->input('bus_name');
+    $routeName = $request->input('route_name');
+    $cardNumber = $request->input('card_number');
+
+    // Check if the card exists and retrieve it
+    $card = Card::where('card_number', $cardNumber)->first();
+
+    if (!$card) {
+        return response()->json(['message' => 'Card not found.'], 404);
+    }
+
+    // Find the route by name
+    $route = Route::where('name', $routeName)->first();
+
+    if (!$route) {
+        return response()->json(['message' => 'Route not found.'], 404);
+    }
+
+    // Check if the user has enough balance
+    if ($card->balance < $route->fare) {
+        return response()->json(['message' => 'Insufficient balance.'], 400);
+    }
+
+    // Deduct the fare from the card's balance
+    $card->balance -= $route->fare;
+    $card->save();
+
+    // Create the ticket
+    $ticket = Ticket::create([
+        'fare' => $route->fare,
+        'user_id' => $card->user_id,
+        'route_id' => $route->id,
+    ]);
+
+    return response()->json([
+        'message' => 'success',
+        'success' => true,
+    ], 200);
 }
 
 }
