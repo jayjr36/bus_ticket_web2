@@ -15,7 +15,7 @@
 
     <div class="card mb-4">
         <div class="card-body">
-            <h5>Total Fare Collected: ${{ $totalFare }}</h5>
+            <h5>Total Fare Collected: Tshs{{ $totalFare }}</h5>
         </div>
     </div>
 </div>
