@@ -109,6 +109,7 @@ public function getTickets(Request $request)
 
 public function processTicket(Request $request)
 {
+    // Validate the incoming request
     $validator = Validator::make($request->all(), [
         'bus_name' => 'required|string',
         'route_name' => 'required|string',
@@ -131,8 +132,15 @@ public function processTicket(Request $request)
         return response()->json(['message' => 'Card not found.'], 404);
     }
 
+    // Find the bus by name
+    $bus = Bus::where('name', $busName)->first();
+
+    if (!$bus) {
+        return response()->json(['message' => 'Bus not found.'], 404);
+    }
+
     // Find the route by name
-    $route = Route::where('name', $routeName)->first();
+    $route = Route::where('name', $routeName)->where('bus_id', $bus->id)->first();
 
     if (!$route) {
         return response()->json(['message' => 'Route not found.'], 404);
@@ -152,12 +160,12 @@ public function processTicket(Request $request)
         'fare' => $route->fare,
         'user_id' => $card->user_id,
         'route_id' => $route->id,
+        'bus_id' => $bus->id, // Include bus_id
     ]);
 
     return response()->json([
         'message' => 'success',
-        'success' => true,
+        'success' => 'success',
     ], 200);
 }
-
 }

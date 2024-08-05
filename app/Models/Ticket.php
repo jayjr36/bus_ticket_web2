@@ -10,7 +10,7 @@ class Ticket extends Model
     use HasFactory;
 
     protected $fillable = [
-        'fare', 'user_id', 'route_id',
+        'fare', 'user_id', 'route_id','bus_id',
     ];
 
     // Relationship to User
