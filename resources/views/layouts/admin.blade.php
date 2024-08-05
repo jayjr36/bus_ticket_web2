@@ -21,29 +21,27 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                    <a class="nav-link text-uppercase bg-deep-orange" href="{{ route('admin.dashboard') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
+                    <a class="nav-link text-uppercase bg-deep-orange" href="{{ route('admin.users') }}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.buses') }}">Buses</a>
+                    <a class="nav-link text-uppercase bg-deep-orange" href="{{ route('admin.buses') }}">Buses</a>
                 </li>
             </ul>
         </div>
+        
     </nav>
 
     @yield('content')
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+        ></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
-        integrity="sha384-pXb4G9e2oC5UHJ1KUkRGPaXJv2wZ1s6Jgl/lBc7UzV0R5HgB2hq/5pdHb3i+XXK6"
-        crossorigin="anonymous"></script>
+       ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+VyO020jB+6izpuh1zSqQ8Dl3k4abf2h/RJ"
-        crossorigin="anonymous"></script>
+     ></script>
 </body>
 
 </html>
